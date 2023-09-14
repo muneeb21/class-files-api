@@ -7,8 +7,6 @@ communicate through files.
 
 - Tech stack used: Nodejs, Nestjs, Postgres, Typescript
 
-````
-
 ## Running the app
 
 ```bash
@@ -20,7 +18,7 @@ communicate through files.
  - setup your .env profile in the root directory, sample env provided in the root directory.
  - Add this file in your root directory
  -  npm run start
-````
+```
 
 - **NOTE**: No need of SQL file to create tables as code automatically creates them in the DB.
 - If setting up on local then set use base url as `localhost:3000`.
