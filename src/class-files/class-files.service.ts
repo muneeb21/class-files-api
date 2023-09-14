@@ -147,10 +147,6 @@ export class ClassFilesService {
     const ext = this.getFileExtension(file.fileType);
     if (ext) {
       const targetFolderPath = path.join(__dirname, '../../', 'uploads');
-      console.log(
-        'TCL: ClassFilesService -> targetFolderPath',
-        targetFolderPath,
-      );
 
       if (fs.existsSync(`${targetFolderPath}/${file.name}${ext}`)) {
         fs.renameSync(
@@ -181,8 +177,6 @@ export class ClassFilesService {
       throw new NotFoundException('file does not exist');
     }
     const targetFolderPath = path.join(__dirname, '../../', 'uploads');
-    console.log('TCL: targetFolderPath', targetFolderPath);
-
     const ext = this.getFileExtension(file.fileType);
 
     if (fs.existsSync(`${targetFolderPath}/${file.name}${ext}`)) {
@@ -210,7 +204,6 @@ export class ClassFilesService {
     if (search) {
       query += ` and "name" LIKE %${search}%`;
     }
-    console.log('TCL: ClassFilesService -> query', query);
 
     const files = await this.classroomRepository.query(query);
     return files;

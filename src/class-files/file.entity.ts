@@ -32,9 +32,6 @@ export class File {
   @Column({ nullable: true })
   fileDetails: string;
 
-  // @Column()
-  // destination: string;
-
   @Column({ default: false, nullable: false })
   isArchived: boolean;
 

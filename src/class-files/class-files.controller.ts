@@ -8,7 +8,6 @@ import {
   Query,
   ParseIntPipe,
   Request,
-  UnauthorizedException,
   Patch,
   Delete,
 } from '@nestjs/common';
@@ -17,7 +16,6 @@ import { ClassFilesService } from './class-files.service';
 // import { CreateClassroomDto, AddStudentToClassroomDto } from './dto';
 import { Classroom } from './classroom.entity';
 import { File } from './file.entity';
-import { USERTYPE } from 'src/constants/constants';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterConfig } from '../multer.config';
 import { UseInterceptors, UploadedFile } from '@nestjs/common';
@@ -42,7 +40,6 @@ export class ClassFilesController {
       name: createClassroomDto.name,
       tutorId: req.user.userId,
     };
-    console.log('TCL: ClassFilesController -> constructor -> payload', payload);
     // return payload;
 
     return this.classFilesService.createClassroom(payload);
@@ -85,10 +82,6 @@ export class ClassFilesController {
   async getClassrooms(@Request() req): Promise<Classroom[]> {
     // return [];
     const { userType, userId } = req.user;
-    console.log(
-      'TCL: ClassFilesController -> constructor -> req.user',
-      req.user,
-    );
     return this.classFilesService.getClassrooms(userType, userId);
   }
 
@@ -111,8 +104,7 @@ export class ClassFilesController {
     @Body() payload: CreateFileDto,
     @Request() req,
   ): Promise<any> {
-    const { userType, userId } = req.user;
-    console.log(payload.name, file);
+    const { userId } = req.user;
     // return [];
     return this.classFilesService.uploadFile(userId, payload, file);
   }
@@ -123,7 +115,7 @@ export class ClassFilesController {
     @Body() payload: RenameFileDto,
     @Request() req,
   ) {
-    const { userType, userId } = req.user;
+    const { userId } = req.user;
     return await this.classFilesService.renameFile(
       userId,
       Number(id),
@@ -133,7 +125,7 @@ export class ClassFilesController {
   @UseGuards(TutorGuard)
   @Delete('file/:id')
   async deleteFile(@Param('id') id: string, @Request() req) {
-    const { userType, userId } = req.user;
+    const { userId } = req.user;
     return await this.classFilesService.deleteFile(userId, Number(id));
   }
 }

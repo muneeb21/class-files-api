@@ -13,7 +13,6 @@ export class AuthService {
 
   async login(username: string, password: string): Promise<{ token: string }> {
     const user = await this.userService.findByUsername(username);
-    console.log('TCL: AuthService -> user', user);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
